@@ -16,7 +16,14 @@
       <div class="form-group" :class="{ 'has-error': errors.password }">
         <label for="password">Password</label>
         <input id="password" v-model="form.password" type="password" />
+        <ul v-if="errors.password">
+          <li v-for="(error, index) in errors.password" :key="index" class="error-container">
+            {{ error }}
+          </li>
+        </ul>
+        <!----
         <p v-if="errors.password" class="error-message">{{ errors.password }}</p>
+        <div id="password-errors" class="error-container"></div>---->
       </div>
 
       <button type="submit">Register</button>
@@ -114,6 +121,15 @@ const handleSubmit = async () => {
   font-size: 12px;
   margin-top: 5px;
   display: block;
+}
+
+.error-container {
+  padding-left: inherit;
+  margin-top: 10px;
+  color: red;
+  font-size: 12px;
+  margin: 5px 0;
+  list-style: none;
 }
 
 button {

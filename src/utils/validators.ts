@@ -1,33 +1,34 @@
 import type { FormErrors, FormValues } from '@/types'
 
-export interface ValidationResult {
-  isValid: boolean
-  errors: string[]
-}
+const passwordRules = [
+  {
+    condition: (password: string) => !password,
+    message: 'Password is required.',
+  },
+  {
+    condition: (password: string) => password.length < 8,
+    message: 'Password must be at least 8 characters long.',
+  },
+  {
+    condition: (password: string) => !/[A-Z]/.test(password),
+    message: 'Password must contain at least one uppercase letter.',
+  },
+  {
+    condition: (password: string) => !/[a-z]/.test(password),
+    message: 'Password must contain at least one lowercase letter.',
+  },
+  {
+    condition: (password: string) => !/[0-9]/.test(password),
+    message: 'Password must contain at least one number.',
+  },
+  {
+    condition: (password: string) => !/[!@#$%^&*(),.?":{}|<>]/.test(password),
+    message: 'Password must contain at least one special character.',
+  },
+]
 
-export function validatePasswordWithMessages(password: string): ValidationResult {
-  const errors: string[] = []
-
-  if (password.length < 8) {
-    errors.push('Password must be at least 8 characters long.')
-  }
-  if (!/[A-Z]/.test(password)) {
-    errors.push('Password must contain at least one uppercase letter.')
-  }
-  if (!/[a-z]/.test(password)) {
-    errors.push('Password must contain at least one lowercase letter.')
-  }
-  if (!/[0-9]/.test(password)) {
-    errors.push('Password must contain at least one number.')
-  }
-  if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
-    errors.push('Password must contain at least one special character.')
-  }
-
-  return {
-    isValid: errors.length === 0,
-    errors,
-  }
+const validatePassword = (password: string): string[] => {
+  return passwordRules.filter((rule) => rule.condition(password)).map((rule) => rule.message)
 }
 
 export const validateForm = (form: FormValues): { errors: FormErrors; isValid: boolean } => {
@@ -44,11 +45,11 @@ export const validateForm = (form: FormValues): { errors: FormErrors; isValid: b
   }
 
   if (!form.password) {
-    errors.password = 'Password is required'
+    errors.password = ['Password is required.']
   } else {
-    const passwordValidation = validatePasswordWithMessages(form.password)
-    if (!passwordValidation.isValid) {
-      errors.password = passwordValidation.errors.join(' ')
+    const passwordErrors = validatePassword(form.password)
+    if (passwordErrors.length > 0) {
+      errors.password = passwordErrors
     }
   }
 
