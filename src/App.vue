@@ -9,10 +9,13 @@ import HelloWorld from './components/HelloWorld.vue'
 
     <div class="wrapper">
       <HelloWorld msg="You did it!" />
-
+      hola mundo
+      <div i-carbon-campsite />
       <nav>
         <RouterLink to="/">Home</RouterLink>
+        <RouterLink to="/login">Login</RouterLink>
         <RouterLink to="/about">About</RouterLink>
+        <RouterLink to="/signup">Signup</RouterLink>
       </nav>
     </div>
   </header>
