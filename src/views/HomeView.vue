@@ -1,7 +1,7 @@
 <template>
   <main>
     <h1>{{ $t('welcome') }}</h1>
-    <p>{{ $t('greeting', { name: 'John' }) }}</p>
+    <HelloWorld msg="Signup view" />
 
     <div class="floating-button">
       <span>🌐</span>
@@ -18,6 +18,8 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import HelloWorld from '@/components/HelloWorld.vue'
+
 const { locale } = useI18n()
 const currentLanguage = ref(locale.value)
 const changeLanguage = (newLocale: string) => {

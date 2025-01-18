@@ -21,9 +21,6 @@
             {{ error }}
           </li>
         </ul>
-        <!----
-        <p v-if="errors.password" class="error-message">{{ errors.password }}</p>
-        <div id="password-errors" class="error-container"></div>---->
       </div>
 
       <button type="submit">Register</button>
@@ -44,7 +41,6 @@ const form = ref({
 
 const errors = ref<FormErrors>({})
 
-// Validación reactiva
 watch(
   () => form.value,
   (newForm) => {
@@ -130,6 +126,10 @@ const handleSubmit = async () => {
   font-size: 12px;
   margin: 5px 0;
   list-style: none;
+}
+
+ul {
+  padding-left: initial;
 }
 
 button {
