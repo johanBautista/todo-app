@@ -1,7 +1,7 @@
 <template>
-  <HelloWorld msg="About view" />
+  <HelloWorld msg="Login view" />
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import HelloWorld from '@/components/HelloWorld.vue'
 </script>
